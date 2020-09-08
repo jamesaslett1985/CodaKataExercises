@@ -2,7 +2,7 @@
 
 namespace CodeKata
 {
-    class FizzBuzzOutput : IReturnOutput<string>
+    public class FizzBuzzOutput : IReturnOutput<string>
     {
         public string ReturnOutputForNumber(int number)
         {
