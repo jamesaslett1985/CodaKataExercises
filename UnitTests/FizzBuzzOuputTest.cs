@@ -25,5 +25,21 @@ namespace CodeKata.UnitTests
             var test4 = fizzBuzz.ReturnOutputForNumber(100);
             Assert.AreEqual(test4, "Buzz");
         }
+
+        [TestCase(1, "1", TestName ="Test 1")]
+        [TestCase(3, "Fizz")]
+        [TestCase(15, "FizzBuzz")]
+        [TestCase(100, "Buzz")]
+        [TestCase(0, "0")]
+        [TestCase(5, "Buzz")]
+        [TestCase(-5, "Buzz")]
+        [TestCase(101, "101")]
+
+        public void TestName(int input, string expectedOutput)
+        {
+            var fizzBuzz = new FizzBuzzOutput();
+            Assert.AreEqual(expectedOutput, fizzBuzz.ReturnOutputForNumber(input));
+        }
+
     }
 }
