@@ -5,7 +5,7 @@ using Moq;
 namespace CodeKata.UnitTests
 {
     [TestFixture]
-    public class OneToOneHundredProcessor_Test
+    public class OneToOneHundredProcessor
     {
         private OneToOneHundredProcessor<int> _oneToOneHundredProcessor;
 
