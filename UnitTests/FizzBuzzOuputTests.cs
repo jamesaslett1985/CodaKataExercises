@@ -2,6 +2,8 @@ using NUnit.Framework;
 using System.Linq;
 using Moq;
 using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Specialized;
 
 namespace CodeKata.UnitTests
 {
@@ -16,9 +18,23 @@ namespace CodeKata.UnitTests
             for (var i = 0; i <= 100; i++)
             {
                 var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                var expectedValue = CalculateExpectedReturnOutputForNumber(i);
+                var expectedValue = CalculateExpectedReturnOutputForNumbersOneToOneHundred(i);
                 Assert.AreEqual(expectedValue, returnValue);
             }          
+        }
+
+        [Test]
+        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsForMultiplesOfThree()
+        {
+            var fizzBuzz = new FizzBuzzOutput();
+            var expectedResults = Enumerable.Range(1, 100).Where(x => x % 3 == 0);
+
+            foreach (int i in expectedResults)
+            {   
+                    var returnValue = fizzBuzz.ReturnOutputForNumber(i);
+                    var expectedValue = CalculateExpectedReturnOutputForMultiplesOfThree(i);
+                    Assert.AreEqual(expectedValue, returnValue);
+            }
         }
 
         [TestCase(-5, "Number is less than 0!")]
@@ -31,7 +47,7 @@ namespace CodeKata.UnitTests
             Assert.AreEqual(expectedOutput, fizzBuzz.ReturnOutputForNumber(input));
         }
    
-        private string CalculateExpectedReturnOutputForNumber(int number)
+        private string CalculateExpectedReturnOutputForNumbersOneToOneHundred(int number)
         {
             if (number == 0)
             {
@@ -48,6 +64,42 @@ namespace CodeKata.UnitTests
             else if (number % 5 == 0)
             {
                 return "Buzz";
+            }
+            else
+            {
+                return number.ToString();
+            }
+        }
+
+        private string CalculateExpectedReturnOutputForMultiplesOfThree(int number)
+        {
+            if (number % 3 == 0)
+            {
+                return "Fizz";
+            }
+            else
+            {
+                return number.ToString();
+            }
+        }
+
+        private string CalculateExpectedReturnOutputForMultiplesOfFive(int number)
+        {
+            if (number % 5 == 0)
+            {
+                return "Buzz";
+            }
+            else
+            {
+                return number.ToString();
+            }
+        }
+
+        private string CalculateExpectedReturnOutputForMultiplesOfThreeAndFive(int number)
+        {
+            if (number % 3 == 0 & number % 5 == 0)
+            {
+                return "FizzBuzz";
             }
             else
             {
