@@ -4,6 +4,7 @@ using Moq;
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Specialized;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CodeKata.UnitTests
 {
@@ -24,16 +25,47 @@ namespace CodeKata.UnitTests
         }
 
         [Test]
-        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsForMultiplesOfThree()
+
+        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByThree()
         {
             var fizzBuzz = new FizzBuzzOutput();
-            var expectedResults = Enumerable.Range(1, 100).Where(x => x % 3 == 0);
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 3 == 0 & x % 5 != 0);
 
-            foreach (int i in expectedResults)
-            {   
-                    var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                    var expectedValue = CalculateExpectedReturnOutputForMultiplesOfThree(i);
-                    Assert.AreEqual(expectedValue, returnValue);
+            foreach (int i in numbersExpectedToMapToFizzor)
+            {
+                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
+                var expectedValue = CalculateExpectedReturnOutputForNumbersDivisibleByThree(i);
+                Assert.AreEqual(expectedValue, returnValue);
+            }
+        }
+
+        [Test]
+
+        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByFive()
+        {
+            var fizzBuzz = new FizzBuzzOutput();
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 5 == 0 & x % 3 != 0);
+
+            foreach (int i in numbersExpectedToMapToFizzor)
+            {
+                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
+                var expectedValue = CalculateExpectedReturnOutputForNumbersDivisibleByFive(i);
+                Assert.AreEqual(expectedValue, returnValue);
+            }
+        }
+
+        [Test]
+
+        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByThreeAndFive()
+        {
+            var fizzBuzz = new FizzBuzzOutput();
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 5 == 0 & x % 3 == 0);
+
+            foreach (int i in numbersExpectedToMapToFizzor)
+            {
+                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
+                var expectedValue = CalculateExpectedReturnOutputForNumbersDivisibleByThreeAndFive(i);
+                Assert.AreEqual(expectedValue, returnValue);
             }
         }
 
@@ -71,7 +103,7 @@ namespace CodeKata.UnitTests
             }
         }
 
-        private string CalculateExpectedReturnOutputForMultiplesOfThree(int number)
+        private string CalculateExpectedReturnOutputForNumbersDivisibleByThree(int number)
         {
             if (number % 3 == 0)
             {
@@ -83,7 +115,7 @@ namespace CodeKata.UnitTests
             }
         }
 
-        private string CalculateExpectedReturnOutputForMultiplesOfFive(int number)
+        private string CalculateExpectedReturnOutputForNumbersDivisibleByFive(int number)
         {
             if (number % 5 == 0)
             {
@@ -95,7 +127,7 @@ namespace CodeKata.UnitTests
             }
         }
 
-        private string CalculateExpectedReturnOutputForMultiplesOfThreeAndFive(int number)
+        private string CalculateExpectedReturnOutputForNumbersDivisibleByThreeAndFive(int number)
         {
             if (number % 3 == 0 & number % 5 == 0)
             {
