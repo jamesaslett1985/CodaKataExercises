@@ -29,7 +29,7 @@ namespace CodeKata.UnitTests
         public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByThree()
         {
             var fizzBuzz = new FizzBuzzOutput();
-            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 3 == 0 & x % 5 != 0);
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(x, 3) && NumberIsNotDivisibleBy(x, 5));
 
             foreach (int i in numbersExpectedToMapToFizzor)
             {
@@ -39,12 +39,27 @@ namespace CodeKata.UnitTests
             }
         }
 
+        private bool IsNumberDivisibleBy(int x, int divisor)
+        {
+            return x % divisor == 0;
+
+            //exactly the same as above in long hand
+            var modulusResult = x % divisor;
+            var IsEqualToZero = modulusResult == 0;
+            return IsEqualToZero;
+        }
+
+        private bool NumberIsNotDivisibleBy(int x, int divisor)
+        {
+            return !IsNumberDivisibleBy(x, divisor);
+        }
+
         [Test]
 
         public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByFive()
         {
             var fizzBuzz = new FizzBuzzOutput();
-            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 5 == 0 & x % 3 != 0);
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 5 == 0 && x % 3 != 0);
 
             foreach (int i in numbersExpectedToMapToFizzor)
             {
@@ -59,7 +74,7 @@ namespace CodeKata.UnitTests
         public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByThreeAndFive()
         {
             var fizzBuzz = new FizzBuzzOutput();
-            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 5 == 0 & x % 3 == 0);
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 5 == 0 && x % 3 == 0);
 
             foreach (int i in numbersExpectedToMapToFizzor)
             {

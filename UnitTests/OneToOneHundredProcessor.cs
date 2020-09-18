@@ -19,7 +19,6 @@ namespace CodeKata.UnitTests
             mock.Verify(x => x.ReturnOutputForNumber(It.IsAny<int>()), Times.Exactly(100));
             var expectedResults = Enumerable.Range(1, 100);
             CollectionAssert.AreEqual(actualResults, expectedResults);
-
         }
     }
 }
