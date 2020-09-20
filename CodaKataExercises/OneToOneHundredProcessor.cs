@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using System.Xml;
 
 namespace CodeKata
 {
@@ -20,13 +20,15 @@ namespace CodeKata
 
         public IEnumerable<TConvertNumberTo> ReturnNumbersRecursively(int n)
         {
-            //want to return a collection that implements IEnumerable - try doing with a List
+            //create new List as int
+            List<int> itemsList = new List<int>();
 
+            //want to return a collection that implements IEnumerable - try doing with a List
             int count = n;
             if (count <= 100)
             {
+                itemsList.Add(n);
                 n++;
-                return ReturnNumbersRecursively(n);
             }
             return ReturnNumbersRecursively(n);
         }
