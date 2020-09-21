@@ -27,56 +27,18 @@ namespace CodeKata.UnitTests
 
         //--------------------------------------------------------------------------------------
 
-        [TestCase(1, 3)]
+        [TestCase(3, 5)]
+        [TestCase(5, 3)]
 
-        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleBy(int input, int numberDivisibleBy)
+        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleBy(int numberDivisibleBy, int numberIsNotDivisibleBy)
         {
             var fizzBuzz = new FizzBuzzOutput();
-            //var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 3 == 0); works fine
-            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(input, numberDivisibleBy));
-
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(x, numberDivisibleBy) && NumberIsNotDivisibleBy(x, numberIsNotDivisibleBy));
 
             foreach (int i in numbersExpectedToMapToFizzor)
             {
                 var returnValue = fizzBuzz.ReturnOutputForNumber(i);
                 var expectedValue = CalculateExpectedReturnOutputForNumbersDivisibleBy(i);
-                Assert.AreEqual(expectedValue, returnValue);
-            }
-        }
-        private bool IsNumberDivisibleBy(int x, int divisor)
-        {
-            return x % divisor == 0;
-        }
-
-        [Test]
-        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByThree()
-        {
-            var fizzBuzz = new FizzBuzzOutput();
-            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(x, 3) && NumberIsNotDivisibleBy(x, 5));
-
-            foreach (int i in numbersExpectedToMapToFizzor)
-            {
-                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                var expectedValue = CalculateExpectedReturnOutputForNumbersDivisibleByThree(i);
-                Assert.AreEqual(expectedValue, returnValue);
-            }
-        }
-
-        private bool NumberIsNotDivisibleBy(int x, int divisor)
-        {
-            return !IsNumberDivisibleBy(x, divisor);
-        }
-
-        [Test]
-        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByFive()
-        {
-            var fizzBuzz = new FizzBuzzOutput();
-            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => x % 5 == 0 && x % 3 != 0);
-
-            foreach (int i in numbersExpectedToMapToFizzor)
-            {
-                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                var expectedValue = CalculateExpectedReturnOutputForNumbersDivisibleByFive(i);
                 Assert.AreEqual(expectedValue, returnValue);
             }
         }
@@ -94,11 +56,6 @@ namespace CodeKata.UnitTests
                 Assert.AreEqual(expectedValue, returnValue);
             }
         }
-
-
-
-
-
 
         //------------------------------------------------------------------------
 
@@ -136,9 +93,25 @@ namespace CodeKata.UnitTests
             }
         }
 
+        //METHODS------------------------------------------------------------------------
+
+        private bool IsNumberDivisibleBy(int x, int divisor)
+        {
+            return x % divisor == 0;
+        }
+
+        private bool NumberIsNotDivisibleBy(int x, int divisor)
+        {
+            return !IsNumberDivisibleBy(x, divisor);
+        }
+
         private string CalculateExpectedReturnOutputForNumbersDivisibleBy(int number)
         {
-            if (number % 3 == 0)
+            if (number % 3 == 0 & number % 5 == 0)
+            {
+                return "FizzBuzz";
+            }
+            else if (number % 3 == 0)
             {
                 return "Fizz";
             }
@@ -146,34 +119,7 @@ namespace CodeKata.UnitTests
             {
                 return "Buzz";
             }
-            else if (number % 3 == 0 & number % 5 == 0)
-            {
-                return "FizzBuzz";
-            }
-            else
-            {
-                return number.ToString();
-            }
-        }
 
-        private string CalculateExpectedReturnOutputForNumbersDivisibleByThree(int number)
-        {
-            if (number % 3 == 0)
-            {
-                return "Fizz";
-            }
-            else
-            {
-                return number.ToString();
-            }
-        }
-
-        private string CalculateExpectedReturnOutputForNumbersDivisibleByFive(int number)
-        {
-            if (number % 5 == 0)
-            {
-                return "Buzz";
-            }
             else
             {
                 return number.ToString();
