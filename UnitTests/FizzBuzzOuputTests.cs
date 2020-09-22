@@ -24,13 +24,10 @@ namespace CodeKata.UnitTests
             }          
         }
 
+        [TestCase(3, 5, "Fizz")]
+        [TestCase(5, 3, "Buzz")]
 
-        //--------------------------------------------------------------------------------------
-
-        [TestCase(3, 5)]
-        [TestCase(5, 3)]
-
-        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleBy(int numberDivisibleBy, int numberIsNotDivisibleBy)
+        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleBy(int numberDivisibleBy, int numberIsNotDivisibleBy, string expectedOutput)
         {
             var fizzBuzz = new FizzBuzzOutput();
             var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(x, numberDivisibleBy) && NumberIsNotDivisibleBy(x, numberIsNotDivisibleBy));
@@ -38,8 +35,7 @@ namespace CodeKata.UnitTests
             foreach (int i in numbersExpectedToMapToFizzor)
             {
                 var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                var expectedValue = CalculateExpectedReturnOutputForNumbersDivisibleBy(i);
-                Assert.AreEqual(expectedValue, returnValue);
+                Assert.AreEqual(expectedOutput, returnValue);
             }
         }
 
@@ -56,8 +52,6 @@ namespace CodeKata.UnitTests
                 Assert.AreEqual(expectedValue, returnValue);
             }
         }
-
-        //------------------------------------------------------------------------
 
         [TestCase(-5, "Number is less than 0!")]
         [TestCase(0, "0")]
