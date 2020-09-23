@@ -13,7 +13,7 @@ namespace CodeKata
             var getNumbers = new NumberOnlyOutput();
             var processNumbers = new OneToOneHundredProcessor<int>(getNumbers);
             //var results = processNumbers.LoopThroughNumbers().Select(item => item.ToString());
-            var results = processNumbers.ReturnNumbersRecursively(1).Select(item => item.ToString());
+            var results = processNumbers.ReturnNumbers().Select(item => item.ToString());
             var file = BuildFile.CreateFile(@"C:\Test Output\", "output.txt");
             File.WriteAllLines(file, results);         
         }

@@ -18,19 +18,20 @@ namespace CodeKata
             return Enumerable.Range(1, 100).Select(_returnOutput.ReturnOutputForNumber);
         }
 
-        public IEnumerable<TConvertNumberTo> ReturnNumbersRecursively(int n)
+        public IEnumerable<TConvertNumberTo> ReturnNumbers()
         {
-            //create new List as int
-            List<int> itemsList = new List<int>();
+            return RecursiveListMethod(new List<TConvertNumberTo>(), 0);
+        }
 
-            //want to return a collection that implements IEnumerable - try doing with a List
-            int count = n;
-            if (count <= 100)
+        private List<TConvertNumberTo> RecursiveListMethod(List<TConvertNumberTo> items, int currentCount)
+        {
+            if (currentCount >= 100)
             {
-                itemsList.Add(n);
-                n++;
+                return items;
             }
-            return ReturnNumbersRecursively(n);
+            var nextCount = currentCount + 1;
+            items.Add(_returnOutput.ReturnOutputForNumber(nextCount));
+            return RecursiveListMethod(items, nextCount);
         }
     }
 }
