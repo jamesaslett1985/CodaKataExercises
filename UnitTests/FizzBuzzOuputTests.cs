@@ -25,6 +25,21 @@ namespace CodeKata.UnitTests
             }
         }
 
+        [Test]
+
+        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsForNumbersOnly()
+        {
+            var fizzBuzz = new FizzBuzzOutput();
+            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => NumberIsNotDivisibleBy(x, 3) && NumberIsNotDivisibleBy(x, 5));
+
+            foreach (var i in numbersExpectedToMapToFizzor)
+            {
+                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
+                var expectedValue = CalculateExpectedReturnOutputForNumbersOneToOneHundred(i);
+                Assert.AreEqual(expectedValue, returnValue);
+            }
+        }
+
         [TestCase(3, 5, "Fizz")]
         [TestCase(5, 3, "Buzz")]
 
@@ -32,7 +47,6 @@ namespace CodeKata.UnitTests
         {
             var fizzBuzz = new FizzBuzzOutput();
             var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(x, numberDivisibleBy) && NumberIsNotDivisibleBy(x, numberIsNotDivisibleBy));
-
             AssertSequenceHasExpectedValue(fizzBuzz, numbersExpectedToMapToFizzor, expectedOutput);
         }
 
