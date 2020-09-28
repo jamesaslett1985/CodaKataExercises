@@ -27,6 +27,10 @@ namespace Website.Controllers
         {
             return View();
         }
+        public void ClickFizzBuzzButton()
+        {
+            Console.WriteLine("Button 1 Clicked");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
