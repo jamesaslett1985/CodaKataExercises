@@ -12,32 +12,19 @@ namespace CodeKata.UnitTests
     [TestFixture]
     public class FizzBuzzOutputTests
     {
-        [Test]
-        public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsForNumbersOneToOneHundred()
-        {
-            var fizzBuzz = new FizzBuzzOutput();
+        private readonly FizzBuzzOutput _fizzBuzzOutput;
 
-            for (var i = 0; i <= 100; i++)
-            {
-                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                var expectedValue = CalculateExpectedReturnOutputForNumbersOneToOneHundred(i);
-                Assert.AreEqual(expectedValue, returnValue);
-            }
+        public FizzBuzzOutputTests() 
+        {
+            _fizzBuzzOutput = new FizzBuzzOutput();
         }
 
         [Test]
 
         public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsForNumbersOnly()
         {
-            var fizzBuzz = new FizzBuzzOutput();
-            var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => NumberIsNotDivisibleBy(x, 3) && NumberIsNotDivisibleBy(x, 5));
-
-            foreach (var i in numbersExpectedToMapToFizzor)
-            {
-                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                var expectedValue = CalculateExpectedReturnOutputForNumbersOneToOneHundred(i);
-                Assert.AreEqual(expectedValue, returnValue);
-            }
+            var numberNotDivisibleByThreeAndFive = Enumerable.Range(1, 100).Where(x => NumberIsNotDivisibleBy(x, 3) && NumberIsNotDivisibleBy(x, 5));
+            AssertSequenceHasExpectedValue(numberNotDivisibleByThreeAndFive, i => i.ToString());
         }
 
         [TestCase(3, 5, "Fizz")]
@@ -45,26 +32,25 @@ namespace CodeKata.UnitTests
 
         public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleBy(int numberDivisibleBy, int numberIsNotDivisibleBy, string expectedOutput)
         {
-            var fizzBuzz = new FizzBuzzOutput();
             var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(x, numberDivisibleBy) && NumberIsNotDivisibleBy(x, numberIsNotDivisibleBy));
-            AssertSequenceHasExpectedValue(fizzBuzz, numbersExpectedToMapToFizzor, expectedOutput);
+            AssertSequenceHasExpectedValue(numbersExpectedToMapToFizzor, _ => expectedOutput);
         }
 
         [Test]
         public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsNumbersDivisibleByThreeAndFive()
         {
-            var fizzBuzz = new FizzBuzzOutput();
             var numbersExpectedToMapToFizzor = Enumerable.Range(1, 100).Where(x => IsNumberDivisibleBy(x, 5) && IsNumberDivisibleBy(x, 3));
-            AssertSequenceHasExpectedValue(fizzBuzz, numbersExpectedToMapToFizzor, "FizzBuzz");
+            AssertSequenceHasExpectedValue(numbersExpectedToMapToFizzor, _ => "FizzBuzz");
         }
 
-        private static void AssertSequenceHasExpectedValue(FizzBuzzOutput fizzBuzz, IEnumerable<int> collectionToVerify, string expectedOutput)
+        private void AssertSequenceHasExpectedValue(IEnumerable<int> collectionToVerify, Func<int, string> expectedOutput)
         {
 
             foreach (var i in collectionToVerify)
             {
-                var returnValue = fizzBuzz.ReturnOutputForNumber(i);
-                Assert.AreEqual(expectedOutput, returnValue);
+                var returnValue = _fizzBuzzOutput.ReturnOutputForNumber(i);
+                var expectedOutputValue = expectedOutput(i);
+                Assert.AreEqual(expectedOutputValue, returnValue);
             }
         }
 
@@ -74,32 +60,7 @@ namespace CodeKata.UnitTests
 
         public void ReturnOutputForNumber_ShouldReturn_ExpectedResultsForEdgeCases(int input, string expectedOutput)
         {
-            var fizzBuzz = new FizzBuzzOutput();
-            Assert.AreEqual(expectedOutput, fizzBuzz.ReturnOutputForNumber(input));
-        }
-
-        private string CalculateExpectedReturnOutputForNumbersOneToOneHundred(int number)
-        {
-            if (number == 0)
-            {
-                return "0";
-            }
-            else if (number % 3 == 0 & number % 5 == 0)
-            {
-                return "FizzBuzz";
-            }
-            else if (number % 3 == 0)
-            {
-                return "Fizz";
-            }
-            else if (number % 5 == 0)
-            {
-                return "Buzz";
-            }
-            else
-            {
-                return number.ToString();
-            }
+            Assert.AreEqual(expectedOutput, _fizzBuzzOutput.ReturnOutputForNumber(input));
         }
 
         //METHODS------------------------------------------------------------------------
@@ -112,27 +73,6 @@ namespace CodeKata.UnitTests
         private bool NumberIsNotDivisibleBy(int x, int divisor)
         {
             return !IsNumberDivisibleBy(x, divisor);
-        }
-
-        private string CalculateExpectedReturnOutputForNumbersDivisibleBy(int number)
-        {
-            if (number % 3 == 0 & number % 5 == 0)
-            {
-                return "FizzBuzz";
-            }
-            else if (number % 3 == 0)
-            {
-                return "Fizz";
-            }
-            else if (number % 5 == 0)
-            {
-                return "Buzz";
-            }
-
-            else
-            {
-                return number.ToString();
-            }
         }
     }
 }
