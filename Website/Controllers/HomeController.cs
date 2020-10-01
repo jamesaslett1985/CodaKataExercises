@@ -23,13 +23,16 @@ namespace Website.Controllers
             return View();
         }
 
+        public IActionResult FizzBuzz()
+        {
+            var model = new FizzBuzzResults(new[] { "result 1", "result 2" });
+            return View(model);
+        }
+
+
         public IActionResult Privacy()
         {
             return View();
-        }
-        public void ClickFizzBuzzButton()
-        {
-            Console.WriteLine("Button 1 Clicked");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

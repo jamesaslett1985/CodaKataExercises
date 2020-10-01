@@ -1,0 +1,12 @@
+﻿@model FizzBuzzResults
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>FizzBuzz Results!</h1>
+
+@foreach (var result in Model.Results)
+{
+    <p>@result</p>
+}
