@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CodeKata;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Website.Models;
@@ -23,9 +24,21 @@ namespace Website.Controllers
             return View();
         }
 
+        public IActionResult FizzBuzzNumbersOnly()
+        {
+            var getNumbers = new NumberOnlyOutput();
+            var processNumbers = new OneToOneHundredProcessor<int>(getNumbers);
+            var results = processNumbers.ReturnNumbers().Select(item => item.ToString());
+            var model = new FizzBuzzResults(results.ToArray());
+            return View(model);
+        }
+
         public IActionResult FizzBuzz()
         {
-            var model = new FizzBuzzResults(new[] { "result 1", "result 2" });
+            var getNumbers = new FizzBuzzOutput();
+            var processNumbers = new OneToOneHundredProcessor<string>(getNumbers);
+            var results = processNumbers.ReturnNumbers().Select(item => item.ToString());
+            var model = new FizzBuzzResults(results.ToArray());
             return View(model);
         }
 

@@ -3,8 +3,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">FizzBuzz Generator</h1>
-    <form action="/Home/FizzBuzz" method="post">
-        <input type="submit" value="Run FizzBuzz!"/>
+    <form asp-action="FizzBuzz" method="post">
+        <input type="submit" value="FizzBuzz!" />
+    </form>
+    <form asp-action="FizzBuzzNumbersOnly" method="post">
+        <input type="submit" value="Numbers Only" />
     </form>
 </div>
