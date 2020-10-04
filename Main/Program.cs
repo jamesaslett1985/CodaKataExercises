@@ -5,7 +5,7 @@ using System.Linq;
 namespace CodeKata
 
 {
-    class Program
+   class Program
     {
         static void Main(string[] args)
         {

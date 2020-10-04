@@ -4,9 +4,11 @@ using System.Xml;
 
 namespace CodeKata
 {
-    public class OneToOneHundredProcessor<TConvertNumberTo>
+    public class OneToOneHundredProcessor<TConvertNumberTo> : IOneToOneHundredProcessor<T>
     {
         private readonly IReturnOutput<TConvertNumberTo> _returnOutput;
+        private readonly IOneToOneHundredProcessor<TConvertNumberTo> _oneToOneHundred;
+
 
         public OneToOneHundredProcessor(IReturnOutput<TConvertNumberTo> returnOutput)
         {

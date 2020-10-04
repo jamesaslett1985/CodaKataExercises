@@ -10,6 +10,7 @@ namespace Website.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IOneToOneHundredProcessor<int> _oneToOneHundred;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -33,7 +34,8 @@ namespace Website.Controllers
 
         private IActionResult OneToOneHundredProcessorResults<T>(IReturnOutput<T> getNumbers)
         {
-            var processNumbers = new OneToOneHundredProcessor<T>(getNumbers);
+            var processNumbers = _oneToOneHundred(getNumbers);
+            //var processNumbers = new OneToOneHundredProcessor<T>(getNumbers);
             var results = processNumbers.ReturnNumbers().Select(item => item.ToString());
             var model = new FizzBuzzResults(results.ToArray());
             return View("FizzBuzzOutput", model);
